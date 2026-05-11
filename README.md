@@ -20,15 +20,6 @@ Aplikasi webcam interaktif untuk demonstrasi teknik pengolahan citra real-time m
 pip install -r requirements.txt
 ```
 
-Jika memakai VS Code, pastikan terminal dan interpreter VS Code memakai Python yang sama. Cara paling aman adalah memakai virtual environment:
-
-```bash
-python -m venv .venv
-.\.venv\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
-
 ## Menjalankan Program
 
 ```bash
