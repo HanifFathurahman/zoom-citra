@@ -1,7 +1,5 @@
 # Zoom Citra
 
-Kelompok 3 - R8E
-
 Aplikasi webcam interaktif untuk demonstrasi teknik pengolahan citra real-time menggunakan OpenCV dan MediaPipe.
 
 ## Fitur
