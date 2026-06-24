@@ -46,8 +46,13 @@ FILTERS = [
 def download_model():
     if not os.path.exists(MODEL_PATH):
         print("Mengunduh model MediaPipe (~25MB), harap tunggu...")
-        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
-        print("Model berhasil diunduh.")
+        try:
+            urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+            print("Model berhasil diunduh.")
+        except Exception as e:
+            print(f"Gagal mengunduh model: {e}")
+            print(f"Pastikan koneksi internet aktif, atau unduh manual model di:\n{MODEL_URL}\ndan simpan dengan nama '{MODEL_PATH}' di folder ini.")
+            sys.exit(1)
 
 
 def palm_center(landmarks):
@@ -273,7 +278,7 @@ def main():
             saved_path,
         )
 
-        cv2.imshow("Mini Studio Pengolahan Citra", display)
+        cv2.imshow("Zoom Citra Real-Time", display)
 
         key = cv2.waitKey(1) & 0xFF
         if key == ord("q"):
