@@ -177,6 +177,7 @@ def save_frame(frame):
     return path
 
 
+#membuat handlandmarker = mendeteksi 2 tangan
 def create_detector():
     download_model()
     base_options = mp_python.BaseOptions(model_asset_path=MODEL_PATH)
@@ -194,6 +195,7 @@ def update_zoom_from_hands(frame, detector, zoom_level, prev_dist):
     h, w = frame.shape[:2]
     state = "no_hand"
 
+    #konversi bgr ke rgb dan deteksi tangan
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
     result = detector.detect(mp_image)
@@ -207,6 +209,7 @@ def update_zoom_from_hands(frame, detector, zoom_level, prev_dist):
         dist = np.linalg.norm(c0 - c1)
         norm_dist = dist / (avg_size * 6)
 
+        #menentukan zoom in dan out
         if prev_dist is not None:
             delta = norm_dist - prev_dist
             if delta < -0.005:
@@ -236,6 +239,7 @@ def update_zoom_from_hands(frame, detector, zoom_level, prev_dist):
     return zoom_level, prev_dist, state
 
 
+#membuka kamera
 def main():
     detector = create_detector()
     cap = cv2.VideoCapture(0)
@@ -258,7 +262,6 @@ def main():
         if not ret:
             break
 
-        raw_frame = cv2.flip(raw_frame, 1)
         annotated = raw_frame.copy()
         zoom_level, prev_dist, state = update_zoom_from_hands(
             annotated, detector, zoom_level, prev_dist
